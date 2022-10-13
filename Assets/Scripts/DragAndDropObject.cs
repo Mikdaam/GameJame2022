@@ -5,31 +5,26 @@ using UnityEngine.EventSystems;
 
 public class DragAndDropObject : MonoBehaviour
 {
-    private Vector3 dragPosition;
     private Vector3 screenPoint;
     private Vector3 offset;
     public GameObject objet;
-    private bool locked;
 
     public static GameObject CurrentlySelectedGameObject = null;
+    public static bool objectOnDrag = false;
     private void Start()
 	{
-        locked = false;
 	}
 
 	void OnMouseDown()
     {
-        Debug.Log("NAME : " + gameObject.name);
-        locked = false;
+        objectOnDrag = true;
         screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
     }
 
-    private Camera mainCamera;
-    private float CameraZDistance;
-
     void OnMouseDrag()
     {
+        objectOnDrag = true;
         Supprimer.btnDelete.SetActive(true);
        
         CurrentlySelectedGameObject = gameObject;
@@ -45,11 +40,8 @@ public class DragAndDropObject : MonoBehaviour
         {
             if (transform.position == objet.transform.position && objet != gameObject)
             {
-                //screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
                 offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-                Debug.Log("HEEEEEEEEE " + gameObject.name);
                 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-
                 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
                 curPosition.x = Mathf.Round(curPosition.x) + gameObject.transform.localScale.x;
                 curPosition.y = Mathf.Round(curPosition.y);
@@ -60,7 +52,12 @@ public class DragAndDropObject : MonoBehaviour
 
     }
 
-    void Update()
+	private void OnMouseUp()
+	{
+        objectOnDrag = false;
+	}
+
+	void Update()
     {
         
     }
