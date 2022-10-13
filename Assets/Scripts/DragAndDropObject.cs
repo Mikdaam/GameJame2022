@@ -10,6 +10,8 @@ public class DragAndDropObject : MonoBehaviour
     private Vector3 offset;
     public GameObject objet;
 
+    private WaitForSeconds timer = new WaitForSeconds(1f);
+
     public static GameObject CurrentlySelectedGameObject = null;
 
     void OnMouseDown()
@@ -48,6 +50,24 @@ public class DragAndDropObject : MonoBehaviour
                 curPosition.z = gameObject.transform.position.z;
                 gameObject.transform.position = curPosition;
             }
+        }
+    }
+
+    void Update()
+    {
+        rotate();
+    }
+
+    IEnumerator rotate()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Quaternion a = CurrentlySelectedGameObject.transform.rotation;
+            a.x += 90f;
+            a.y += 90f;
+            a.z -= 90f;
+            CurrentlySelectedGameObject.transform.rotation = a;
+            yield return timer;
         }
     }
 }
