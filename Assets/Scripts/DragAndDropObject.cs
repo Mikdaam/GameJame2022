@@ -5,16 +5,6 @@ using UnityEngine.EventSystems;
 
 public class DragAndDropObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Awake()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private Vector3 dragPosition;
     private Vector3 screenPoint;
     private Vector3 offset;
@@ -26,8 +16,10 @@ public class DragAndDropObject : MonoBehaviour
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
         
     }
+
     private Camera mainCamera;
     private float CameraZDistance;
+
     void OnMouseDrag()
     {
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
@@ -39,4 +31,14 @@ public class DragAndDropObject : MonoBehaviour
         transform.position = curPosition;
     }
 
+    void OnMouseExit()
+    {
+        foreach (GameObject objet in GameObject.FindGameObjectsWithTag("object"))
+        {
+            if (transform.position == objet.transform.position && objet != gameObject)
+            {
+                Debug.Log("CA MARCHE");
+            }
+        }
+    }
 }
