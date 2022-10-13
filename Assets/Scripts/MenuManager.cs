@@ -23,4 +23,9 @@ public class MenuManager : MonoBehaviour
     {
         audioMixer.SetFloat("volume", volume);
     }
+
+    public void createObject(GameObject sampleObject)
+    {
+        Instantiate(sampleObject, new Vector3(0, 0, -1), Quaternion.Euler(-90f, 0f, 0f));
+    }
 }
