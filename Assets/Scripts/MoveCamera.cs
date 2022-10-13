@@ -102,18 +102,21 @@ public class MoveCamera : MonoBehaviour
     //przesuwanie pozycji kamery (lewo, prawo, góra, dół)
     private void PanCamera()
     {
-
-        if (Input.GetMouseButtonDown(0))
-            dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
-
-        if (Input.GetMouseButton(0))
+        if (!DragAndDropObject.objectOnDrag)
         {
-            Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
-            print("origin " + dragOrigin + " newPosition " + cam.ScreenToWorldPoint(Input.mousePosition) + " =difference" + difference);
-            //cam.transform.position += difference; //bez ograniczenia obszaru
 
-            cam.transform.position = ClampCamera(cam.transform.position + difference);   //ograniczenie obszaru
+            if (Input.GetMouseButtonDown(0))
+                dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
 
+            if (Input.GetMouseButton(0))
+            {
+                Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
+                print("origin " + dragOrigin + " newPosition " + cam.ScreenToWorldPoint(Input.mousePosition) + " =difference" + difference);
+                //cam.transform.position += difference; //bez ograniczenia obszaru
+
+                cam.transform.position = ClampCamera(cam.transform.position + difference);   //ograniczenie obszaru
+
+            }
         }
 
         /*
@@ -130,7 +133,7 @@ public class MoveCamera : MonoBehaviour
     public void ZoomIn()
     {
         float newSize = cam.orthographicSize - zoomStep;
-        cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
+        cam.orthographicSize = Mathf.Clamp(newSize, 0, 100);
 
         cam.transform.position = ClampCamera(cam.transform.position);   //ograniczenie obszaru
     }
@@ -138,7 +141,7 @@ public class MoveCamera : MonoBehaviour
     public void ZoomOut()
     {
         float newSize = cam.orthographicSize + zoomStep;
-        cam.orthographicSize = Mathf.Clamp(newSize, minCamSize, maxCamSize);
+        cam.orthographicSize = Mathf.Clamp(newSize, 0, 100);
 
         cam.transform.position = ClampCamera(cam.transform.position); //ograniczenie obszaru
     }
