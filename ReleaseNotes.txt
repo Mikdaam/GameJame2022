@@ -1,0 +1,4 @@
+Nom du Jeu : DREAMCITY
+Controles :
+    - Souris -> clic gauche pour poser un batiment
+    - Clavier -> Touche R pour la rotation
