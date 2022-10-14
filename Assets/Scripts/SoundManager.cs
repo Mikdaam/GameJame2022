@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicControl : MonoBehaviour
+public class SoundManager : MonoBehaviour
 {
-    public static MusicControl instance; // Creates a static varible for a MusicControlScript instance
+    public static SoundManager instance; // Creates a static varible for a MusicControlScript instance
+
+    [SerializeField] private AudioSource _musicSource, _effectSource;
 
     private void Awake() // Runs before void Start()
     {
@@ -18,5 +20,10 @@ public class MusicControl : MonoBehaviour
         {
             Destroy(gameObject); // Destroy this gameObject
         }
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        _effectSource.PlayOneShot(clip);
     }
 }
