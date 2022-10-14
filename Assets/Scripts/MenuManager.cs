@@ -26,21 +26,21 @@ public class MenuManager : MonoBehaviour
 
     public void createObject(GameObject sampleObject)
     {
-        Vector3 vecteur = new Vector3(0, 0, -1);
+        Vector3 vecteur = new Vector3(0, 0, sampleObject.transform.position.z-1);
         bool test = true;
         while (test)
         {
             test = false;
             foreach (GameObject objet in GameObject.FindGameObjectsWithTag("object"))
             {
-                if (vecteur == objet.transform.position && objet != gameObject)
+                if (vecteur.x == objet.transform.position.x && vecteur.y == objet.transform.position.y && objet != gameObject)
                 {
                     vecteur.x = (Mathf.Round(vecteur.x * 0.125f) / 0.125f) + (objet.transform.localScale.x*8f);
                     test = true;
                 }
             }
         }
-        GameObject objectCreated = Instantiate(sampleObject, vecteur, Quaternion.Euler(-90f, 0f, 0f));
+        Instantiate(sampleObject, vecteur, Quaternion.Euler(-90f, 0f, 0f));
 
     }
 }
