@@ -5,16 +5,16 @@ using UnityEngine.EventSystems;
 
 public class DragAndDropObject : MonoBehaviour
 {
-    private Vector3 dragPosition;
     private Vector3 screenPoint;
     private Vector3 offset;
+    public GameObject objet;
+
+    public static GameObject CurrentlySelectedGameObject = null;
 
     void OnMouseDown()
     {
-        screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-
+        screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-        
     }
 
     private Camera mainCamera;
@@ -22,22 +22,33 @@ public class DragAndDropObject : MonoBehaviour
 
     void OnMouseDrag()
     {
+        Supprimer.btnDelete.SetActive(true);
+
+        CurrentlySelectedGameObject = gameObject;
+
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 
         Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        curPosition.x = Mathf.Round(curPosition.x);
-        curPosition.y = Mathf.Round(curPosition.y);
+        curPosition.x = Mathf.Round(curPosition.x*0.125f)/0.125f;
+        curPosition.y = Mathf.Round(curPosition.y*0.125f)/0.125f;
         curPosition.z = transform.position.z;
         transform.position = curPosition;
-    }
 
-    void OnMouseExit()
-    {
         foreach (GameObject objet in GameObject.FindGameObjectsWithTag("object"))
         {
-            if (transform.position == objet.transform.position && objet != gameObject)
+            if (transform.position.x == objet.transform.position.x && transform.position.y == objet.transform.position.y && objet != gameObject)
             {
-                Debug.Log("CA MARCHE");
+                curPosition.x = (Mathf.Round(curPosition.x*0.125f)/0.125f) + (gameObject.transform.localScale.x*8f);
+                gameObject.transform.position = curPosition;
+            }
+        }
+
+        // Rotate
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (gameObject != null)
+            {
+                transform.Rotate(0, 90, 0);
             }
         }
     }
