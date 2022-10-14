@@ -8,7 +8,7 @@ public class CameraZoom : MonoBehaviour
     private Camera cam;
     private float targetZoom;
 	private float zoomFactor = 3f;
-    [SerializeField] private float zoomLerpSpeed = 10;
+    [SerializeField] private float zoomLerpSpeed;
     public float zoomMax;
     public float zoomMin;
     // Start is called before the first frame update

@@ -4432,6 +4432,8 @@ GameObject:
   - component: {fileID: 1422286891}
   - component: {fileID: 1422286890}
   - component: {fileID: 1422286889}
+  - component: {fileID: 1422286893}
+  - component: {fileID: 1422286892}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4457,7 +4459,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.039215688, g: 0.68235296, b: 0.4039216, a: 1}
+  m_BackGroundColor: {r: 0.4039216, g: 0.58431375, b: 0.16078432, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4474,7 +4476,7 @@ Camera:
   far clip plane: 1000
   field of view: 113
   orthographic: 1
-  orthographic size: 25
+  orthographic size: 60
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4498,13 +4500,45 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422286888}
   m_LocalRotation: {x: -0.38226202, y: -0.15833813, z: 0.34839013, w: 0.84108806}
-  m_LocalPosition: {x: 45, y: -45, z: -50}
+  m_LocalPosition: {x: 75, y: -75, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -32.188, y: -39.01, z: 56.671}
+--- !u!114 &1422286892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422286888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 915927c2c51431b408d20bb512f9766f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomLerpSpeed: 100
+  zoomMax: 10
+  zoomMin: 60
+--- !u!114 &1422286893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422286888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb704fcb8ca6c346b513040dff332b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1422286890}
+  zoomStep: 0
+  minCamSize: 0
+  maxCamSize: 0
+  dragOrigin: {x: 0, y: 0, z: 0}
 --- !u!1 &1450566862
 GameObject:
   m_ObjectHideFlags: 0

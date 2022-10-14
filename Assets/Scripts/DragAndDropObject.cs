@@ -10,9 +10,11 @@ public class DragAndDropObject : MonoBehaviour
     public GameObject objet;
 
     public static GameObject CurrentlySelectedGameObject = null;
+    public static bool objectOnDrag = false;
 
     void OnMouseDown()
     {
+        objectOnDrag = true;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
     }
@@ -22,6 +24,7 @@ public class DragAndDropObject : MonoBehaviour
 
     void OnMouseDrag()
     {
+        objectOnDrag = true;
         Supprimer.btnDelete.SetActive(true);
 
         CurrentlySelectedGameObject = gameObject;
@@ -51,5 +54,10 @@ public class DragAndDropObject : MonoBehaviour
                 transform.Rotate(0, 90, 0);
             }
         }
+    }
+
+    private void OnMouseUp()
+    {
+        objectOnDrag = false;
     }
 }
